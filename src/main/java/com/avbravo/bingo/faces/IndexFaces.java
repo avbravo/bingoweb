@@ -4,21 +4,38 @@
  */
 package com.avbravo.bingo.faces;
 
-import javax.inject.Named;
-import javax.enterprise.context.Dependent;
+import com.avbravo.jmoordbutils.JsfUtil;
+import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Named;
+import java.io.Serializable;
+import lombok.Data;
 
 /**
  *
  * @author avbravo
  */
-@Named(value = "indexFaces")
-@Dependent
-public class IndexFaces {
-
+@Named
+@SessionScoped
+@Data
+public class IndexFaces implements Serializable{
+    private static final long serialVersionUID = 1L;
     /**
      * Creates a new instance of IndexFaces
      */
     public IndexFaces() {
     }
     
+        // <editor-fold defaultstate="collapsed" desc=" init">
+    @PostConstruct
+    public void init() {
+
+    }
+// </editor-fold>
+    
+    public String hello(){
+        JsfUtil.warningMessage("Hola Mundo");
+        System.out.println("llego al Hello.....");
+        return "";
+    }
 }
