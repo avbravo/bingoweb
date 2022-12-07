@@ -12,7 +12,10 @@
 
     <ui:define name="contenido">
         
-        <h:form id="formDashoard" prependId="false">
+        <!--<h:form id="formDashoard" prependId="false" style="background-color:steelblue;">-->
+        <h:form id="formDashoard" prependId="false" styleClass="Bimage">
+        
+              <!--<p:graphicImage name="bingo.png" library="images" alt="user header" class="mr-2" />-->
             <p:growl id="growl"/>
             <!-- Title -->
             <h1 class="mt-4">Bingo</h1>
@@ -26,7 +29,7 @@
                 <div class="col-xl-3 col-md-6">
                     <p:card  class="card bg-primary text-white">
                         <f:facet name="title">
-                         Backlog
+                         Cartones
                         </f:facet>
                         <p>
                             <p:outputLabel value="#{loginController.username}"/>
@@ -34,24 +37,76 @@
                         <p>Generar proyecto plantilla Jakarta Server Faces 3.0+
                         </p>
                         
+   <f:facet name="footer">
+                            <p:commandButton icon="pi pi-check" value="Jugar"
+                                             update=":formDashoard:growl" action="#{indexFaces.hello()}"/>
+                            <p:commandButton icon="pi pi-times" value="Cancel" styleClass="ui-button-secondary" style="margin-left: .5em"/>
+                        </f:facet>
+                    </p:card>
+                </div>
+                
+                
+                <div class="col-xl-3 col-md-6">
+               <p:card  class="card bg-warning text-white">
+                        <f:facet name="title">
+                            Progreso
+                        </f:facet>
+<h5>Ajax ProgressBar (with long running method)</h5>
+        <p:commandButton value="Start"
+                         onclick="PF('pbAjaxLong').start();PF('startButton3').disable()"
+                         widgetVar="startButton3" actionListener="#{indexFaces.longRunning}" styleClass="mr-2"/>
+        <p:commandButton value="Cancel" action="#{indexFaces.cancel}"
+                         oncomplete="PF('pbAjaxLong').cancel();PF('startButton3').enable()" styleClass="ui-button-outlined"/>
+
+        <p:progressBar widgetVar="pbAjaxLong" ajax="true" value="#{indexFaces.progress2}"
+                       labelTemplate="{value}%" styleClass="mt-3" global="false" interval="500">
+            <p:ajax event="complete" listener="#{indexFaces.onComplete}" update="growl"
+                    oncomplete="PF('startButton3').enable()" />
+        </p:progressBar>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
+                            quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!</p>
 
                     </p:card>
                 </div>
                 <div class="col-xl-3 col-md-6">
-                    <p:card  class="card bg-warning text-white mb-4">
+                   <p:card  class="card bg-info text-white mb-4">
                         <f:facet name="title">
                             Progreso
+                        </f:facet>
+<h5>Ajax ProgressBar (with long running method)</h5>
+        <p:commandButton value="Start"
+                         onclick="PF('pbAjaxLong').start();PF('startButton3').disable()"
+                         widgetVar="startButton3" actionListener="#{indexFaces.longRunning}" styleClass="mr-2"/>
+        <p:commandButton value="Cancel" action="#{indexFaces.cancel}"
+                         oncomplete="PF('pbAjaxLong').cancel();PF('startButton3').enable()" styleClass="ui-button-outlined"/>
+
+        <p:progressBar widgetVar="pbAjaxLong" ajax="true" value="#{indexFaces.progress2}"
+                       labelTemplate="{value}%" styleClass="mt-3" global="false" interval="500">
+            <p:ajax event="complete" listener="#{indexFaces.onComplete}" update="growl"
+                    oncomplete="PF('startButton3').enable()" />
+        </p:progressBar>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
+                            quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!</p>
+
+                    </p:card>
+                </div>
+                
+                
+                <div class="col-xl-3 col-md-6" >
+                    <p:card  class="card bg-success text-white mb-4">
+                        <f:facet name="title">
+                            Terminado
                         </f:facet>
 
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
                             quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!</p>
 
                     </p:card>
-                </div>
+                     </div>
                 <div class="col-xl-3 col-md-6" >
                     <p:card  class="card bg-success text-white mb-4">
                         <f:facet name="title">
-                            Terminado
+                              <p:graphicImage name="bingo.png" library="images" alt="user header" class="mr-2" />
                         </f:facet>
 
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
