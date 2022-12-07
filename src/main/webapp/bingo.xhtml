@@ -32,7 +32,7 @@
                             Cartones
                         </f:facet>
                         <p>
-                          
+
                         </p>
                         <p>Presione le botón Jugar+
                         </p>
@@ -50,37 +50,16 @@
                         </p:progressBar>
 
                         <f:facet name="footer">
-                       
+                            <p:outputLabel value="Pendientes #{bingoFaces.pendientes()} "/>
                         </f:facet>
                     </p:card>
                 </div>
 
 
-                <div class="col-xl-6 col-md-6">
-                    <p:card  class="card bg-warning text-white">
-                        <f:facet name="title">
-                            Progreso
-                        </f:facet>
-                        <h5>Numeros Jugados</h5>
-                        <p:dataTable id="dataTable" var="item" value="#{bingoFaces.numeroList}"
-                                     rows="4"
-                                     paginator="true">
-                            <!--                            <p:column headerText="Numero">
-                                                            
-                                                            <p:outputLabel value="#{item.numero}"/>
-                                                        </p:column>-->
-                            <p:column headerText="Figura">
-                                <p:graphicImage name="#{item.image}" library="images" alt="figura" class="mr-2" />
-
-                            </p:column>
-
-                        </p:dataTable>
-
-                    </p:card>
-                </div>
 
 
-                 <div class="col-xl-3 col-md-6" >
+
+                <div class="col-xl-6 col-md-3" >
                     <p:card  class="card bg-danger text-white mb-4">
                         <f:facet name="header">
                             <p:graphicImage name="#{bingoFaces.ultimoJugado.image}" 
@@ -100,16 +79,76 @@
                         </f:facet>
                     </p:card>
                 </div>
-                
-                
-              
-               
+
+
+
+
 
 
 
             </div>
 
+            <div class="row">
 
+                <div class="col-xl-12 col-md-6">
+                    <p:card  class="card bg-success text-white">
+                        <f:facet name="title">
+                           <h5>Numeros Jugados</h5>
+                        </f:facet>
+                       
+                        <p:carousel id="carousel" var="item" value="#{bingoFaces.numeroListJugados}"
+                                    numVisible="3" numScroll="3">
+                            <f:facet name="header">
+                                <h5>JUGADOS</h5>
+                            </f:facet>
+                            <!--                            <p:column headerText="Numero">
+                                                            
+                                                            <p:outputLabel value="#{item.numero}"/>
+                                                        </p:column>-->
+
+
+                            <div class="product-item">
+                                <div class="product-item-content">
+                                    <div class="mb-3">
+                                        <p:graphicImage name="#{item.image}" library="images" alt="figura" class="mr-2" />
+                                    </div>
+                                    <div>
+                                        <h4 class="mb-1">#{item.idnumero}</h4>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </p:carousel>
+                    </p:card>
+                </div>
+            </div>
+                <div class="row">
+                </div>
+                <div class="row">
+                
+                    <div class="col-xl-12 col-md-6">
+                    <p:card  class="card bg-warning text-white">
+                        <f:facet name="title">
+                            Control
+                        </f:facet>
+                        <h5>Todos Los numeros</h5>
+                        <p:dataTable id="dataTable" var="item" value="#{bingoFaces.numeroList}"
+                                     rows="4"
+                                     paginator="true">
+                                                     <p:column headerText="Jugado">
+                                                            
+                                                            <p:outputLabel value="#{item.jugado}"/>
+                                                        </p:column>
+                            <p:column headerText="Figura">
+                                <p:graphicImage name="#{item.image}" library="images" alt="figura" class="mr-2" />
+
+                            </p:column>
+
+                        </p:dataTable>
+
+                    </p:card>
+                </div>
+            </div>
 
         </h:form>
         <!--<h:outputScript name="jsf.js" library="jakarta.faces" target="head"/>-->

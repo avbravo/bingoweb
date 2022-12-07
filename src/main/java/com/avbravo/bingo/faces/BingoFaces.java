@@ -8,7 +8,7 @@ import com.avbravo.bingo.model.Numero;
 import com.avbravo.bingo.repository.NumeroRepository;
 import com.avbravo.jmoordbutils.JsfUtil;
 import jakarta.annotation.PostConstruct;
-import jakarta.enterprise.context.SessionScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
@@ -24,7 +24,7 @@ import lombok.Data;
  * @author avbravo
  */
 @Named
-@SessionScoped
+@ApplicationScoped
 @Data
 public class BingoFaces implements Serializable {
 
@@ -38,15 +38,6 @@ public class BingoFaces implements Serializable {
     @Inject
     NumeroRepository numeroRepository;
 
-    public List<Numero> getNumeroListJugados() {
-        return numeroListJugados;
-    }
-
-    public void setNumeroListJugados(List<Numero> numeroListJugados) {
-        this.numeroListJugados = numeroRepository.findByJugado("si");
-        System.out.println(" JAY JUGADOZ " + numeroListJugados.size());
-    }
-
     /**
      * Creates a new instance of IndexFaces
      */
@@ -57,13 +48,18 @@ public class BingoFaces implements Serializable {
     @PostConstruct
     public void init() {
         findAll();
+        Integer t = numeroRepository.findByJugado("si").size();
+        if (t == 0) {
+            numeroListJugados = new ArrayList<>();
+            ultimoJugado = new Numero("", 0, "carton.png", "no");
+        }
 
     }
 // </editor-fold>
 
     public String findAll() {
         numeroList = numeroRepository.findAll();
-        JsfUtil.successMessage("Tiene " + numeroList.size() + " Jugados");
+        //    JsfUtil.successMessage("Tiene " + numeroList.size() + " Jugados");
         return "";
     }
 
@@ -138,45 +134,91 @@ public class BingoFaces implements Serializable {
                 .getAsInt();
     }
 
+    public Integer getRandom(int min, int max) {
+        Random random = new Random();
+        int answer = random.nextInt(max) + min;
+        return answer;
+    }
+
     public String jugar() {
         try {
             Integer value = 0;
+            Integer count = 0;
             Boolean continuar = Boolean.TRUE;
             Integer total = numeroRepository.countByJugado("no");
             if (total == 0) {
                 JsfUtil.warningMessage("No quedan numeros disponibles.");
                 showStart = Boolean.FALSE;
                 continuar = Boolean.FALSE;
+                return "";
             }
 
             while (continuar) {
                 // value = getRandomNumber(1, 18);
-                value = getRandomNumberUsingInts(1, 18);
-                System.out.println("Value generado " + value);
-                Numero numero = numeroRepository.findByNumero(value);
-                if (numero == null) {
-                    System.out.println("No encontro el numero");
-                } else {
-                    if (numero.getNumero().equals(value)) {
-                        if (numero.getJugado().equals("no")) {
-                            Integer posicion = numeroRepository.positionOfNumero(value);
-                            System.out.println(">>>>>>>Position:  " + posicion);
-                            if (posicion > 0) {
-                                numeroList.get(posicion).setJugado("si");
-                                ultimoJugado = numeroList.get(posicion);
-                                continuar = Boolean.FALSE;
-                            }else{
-                                System.out.println("Posicion es menor o igual a cero");
-                            }
+//                value = getRandomNumberUsingInts(1, 18);
+                if (count < 30) {
+                    value = getRandom(1, 18);
+                    System.out.println("Value generado " + value);
+                    Numero numero = numeroRepository.findByNumero(value);
+                    if (numero == null) {
+                        System.out.println("No encontro el numero");
+                    } else {
+                        if (numero.getNumero().equals(value)) {
+                            if (numero.getJugado().equals("no")) {
+                                Integer posicion = numeroRepository.positionOfNumero(value);
+                                //System.out.println(">>>>>>>Position:  " + posicion);
+                                if (posicion >= 0) {
+                                    numeroList.get(posicion).setJugado("si");
+                                    ultimoJugado = numeroList.get(posicion);
+                                    numeroListJugados.add(ultimoJugado);
+                                    continuar = Boolean.FALSE;
+                                } else {
+                                    System.out.println("Posicion es menor o igual a cero");
+                                }
 
+                            }
                         }
                     }
+                } else {
+                    System.out.println("Ejecuto mas de 30 vececs..");
+                    List<Numero> n = numeroRepository.findByJugado("no");
+                    if (n == null) {
+                        continuar = Boolean.FALSE;
+                        JsfUtil.successMessage("Juego Finalizado");
+                    } else {
+                        System.out.println("N size [ ] "+n.size());
+                        System.out.println("N value [ ] "+n.get(0).getNumero());
+                            Integer posicion = numeroRepository.positionOfNumero(n.get(0).getNumero());
+                            if (posicion >= 0) {
+                                    numeroList.get(posicion).setJugado("si");
+                                    ultimoJugado = numeroList.get(posicion);
+                                    numeroListJugados.add(ultimoJugado);
+                                    continuar = Boolean.FALSE;
+                                } else {
+                                    System.out.println("Posicion es menor o igual a cero");
+                                }
+                            
+                        
+                    }
+                    continuar = Boolean.FALSE;
                 }
+
+                count++;
             }
 
         } catch (Exception e) {
             JsfUtil.errorMessage("jugar() " + e.getLocalizedMessage());
         }
         return "";
+    }
+
+    public Integer pendientes() {
+        Integer result = 0;
+        try {
+            result = numeroList.size() - numeroListJugados.size();
+        } catch (Exception e) {
+            JsfUtil.errorMessage("pendientes() " + e.getLocalizedMessage());
+        }
+        return result;
     }
 }

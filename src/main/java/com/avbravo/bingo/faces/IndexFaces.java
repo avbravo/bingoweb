@@ -8,12 +8,14 @@ import com.avbravo.bingo.model.Numero;
 import com.avbravo.bingo.repository.NumeroRepository;
 import com.avbravo.jmoordbutils.JsfUtil;
 import jakarta.annotation.PostConstruct;
-import jakarta.enterprise.context.SessionScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Data;
 
 /**
@@ -21,13 +23,15 @@ import lombok.Data;
  * @author avbravo
  */
 @Named
-@SessionScoped
+@ApplicationScoped
 @Data
 public class IndexFaces implements Serializable{
     private static final long serialVersionUID = 1L;
     
       @Inject
     NumeroRepository numeroRepository;
+      
+        private List<Numero> numeroList = new ArrayList<>();
     /**
      * Creates a new instance of IndexFaces
      */
@@ -37,10 +41,17 @@ public class IndexFaces implements Serializable{
         // <editor-fold defaultstate="collapsed" desc=" init">
     @PostConstruct
     public void init() {
-        //create();
+        findAll();
 
     }
 // </editor-fold>
+    
+    
+     public String findAll() {
+        numeroList = numeroRepository.findAll();
+        //    JsfUtil.successMessage("Tiene " + numeroList.size() + " Jugados");
+        return "";
+    }
     
     public String hello(){
         JsfUtil.warningMessage("Hola Mundo");
@@ -146,6 +157,7 @@ public class IndexFaces implements Serializable{
          numeroRepository.save(manzanilla);
          numeroRepository.save(margarita);
          numeroRepository.save(menta);
+         numeroRepository.save(rosa);
          numeroRepository.save(rosemary);
          numeroRepository.save(valeriana);
          
@@ -161,7 +173,8 @@ public class IndexFaces implements Serializable{
     public String reiniciar(){
         try {
             numeroRepository.reiniciar();
-            
+            create();
+//              numeroList = numeroRepository.findAll();
          JsfUtil.successMessage("Se reinicio los numeros");
          
          
