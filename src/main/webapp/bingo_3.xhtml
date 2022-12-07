@@ -45,7 +45,7 @@
 
                         <p:progressBar widgetVar="pbAjaxLong" ajax="true" value="#{bingoFaces.progress2}"
                                        labelTemplate="{value}%" styleClass="mt-3" global="false" interval="500">
-                            <p:ajax event="complete" listener="#{bingoFaces.onComplete}" update="growl, formDashoard, :formDashoard:dataTable"
+                            <p:ajax event="complete" listener="#{bingoFaces.onComplete}" update="growl, formDashoard. :formDashoard:dataTable"
                                     oncomplete="PF('startButton3').enable()" />
                         </p:progressBar>
 
@@ -56,13 +56,13 @@
                 </div>
 
 
-                <div class="col-xl-6 col-md-6">
+                <div class="col-xl-3 col-md-6">
                     <p:card  class="card bg-warning text-white">
                         <f:facet name="title">
                             Progreso
                         </f:facet>
                         <h5>Numeros Jugados</h5>
-                        <p:dataTable id="dataTable" var="item" value="#{bingoFaces.numeroList}"
+                        <p:dataTable id="numerosJugados" var="item" value="#{bingoFaces.numeroList}"
                                      rows="4"
                                      paginator="true">
                             <!--                            <p:column headerText="Numero">

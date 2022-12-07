@@ -110,24 +110,24 @@ public class IndexFaces implements Serializable{
         try {
             
             Numero aloe = new Numero("aloe",1, "aloe.png", "no");
-            Numero anis = new Numero("anis",2, "anis.png", "no");
-            Numero azahar = new Numero("azahar",3, "azahar.png", "no");
+            Numero anis = new Numero("anis",18, "anis.png", "no");
+            Numero azahar = new Numero("azahar",6, "azahar.png", "no");
            
-            Numero canela = new Numero("canela",4, "canela.png", "no");
-            Numero clavel = new Numero("clavel",5, "clavel.png", "no");
-            Numero crizantemo = new Numero("crizantemo",6, "crizantemo.png", "no");
-            Numero hojadelimon = new Numero("hojadelimon",7, "hojadelimon.png", "no");
-            Numero jazmin = new Numero("jazmin",8, "jazmin.png", "no");
-            Numero jengibre= new Numero("jengibre",9, "jengibre.png", "no");
-            Numero lavanda= new Numero("lavanda",10, "lavanda.png", "no");
-            Numero limon= new Numero("limon",11, "limon.png", "no");
-            Numero lirio= new Numero("lirio",12, "lirio.png", "no");
-            Numero manzanilla= new Numero("manzanilla",13, "manzanilla.png", "no");
-            Numero margarita= new Numero("margarita",14, "margarita.png", "no");
-            Numero menta= new Numero("menta",15, "menta.png", "no");
-            Numero rosa= new Numero("rosa",16, "rosa.png", "no");
-            Numero rosemary= new Numero("rosemary",17, "rosemary.png", "no");
-            Numero valeriana= new Numero("valeriana",18, "valeriana.png", "no");
+            Numero canela = new Numero("canela",15, "canela.png", "no");
+            Numero clavel = new Numero("clavel",12, "clavel.png", "no");
+            Numero crizantemo = new Numero("crizantemo",3, "crizantemo.png", "no");
+            Numero hojadelimon = new Numero("hojadelimon",8, "hojadelimon.png", "no");
+            Numero jazmin = new Numero("jazmin",9, "jazmin.png", "no");
+            Numero jengibre= new Numero("jengibre",2, "jengibre.png", "no");
+            Numero lavanda= new Numero("lavanda",11, "lavanda.png", "no");
+            Numero limon= new Numero("limon",16, "limon.png", "no");
+            Numero lirio= new Numero("lirio",13, "lirio.png", "no");
+            Numero manzanilla= new Numero("manzanilla",10, "manzanilla.png", "no");
+            Numero margarita= new Numero("margarita",17, "margarita.png", "no");
+            Numero menta= new Numero("menta",7, "menta.png", "no");
+            Numero rosa= new Numero("rosa",4, "rosa.png", "no");
+            Numero rosemary= new Numero("rosemary",14, "rosemary.png", "no");
+            Numero valeriana= new Numero("valeriana",5, "valeriana.png", "no");
             
 
          numeroRepository.save(aloe);

@@ -42,7 +42,9 @@ public class AutentificactionIdentityStore implements IdentityStore {
         }
            
         
-          if (login.getCaller().equals("avbravo@gmail.com") && login.getPasswordAsString().equals("denver16")) {
+          if (login.getCaller().equals("avbravo@gmail.com") && login.getPasswordAsString().equals("denver16")
+                  ||login.getCaller().equals("1@gmail.com") && login.getPasswordAsString().equals("1")
+                  ) {
             return new CredentialValidationResult("admin", new HashSet<>(Arrays.asList("ADMIN")));
         } else if (login.getCaller().equals("user@gmail.com") && login.getPasswordAsString().equals("denver16")) {
             return new CredentialValidationResult("user", new HashSet<>(Arrays.asList("USER")));

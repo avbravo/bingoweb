@@ -35,9 +35,6 @@ public class BingoFaces implements Serializable {
     private List<Numero> numeroList = new ArrayList<>();
     private List<Numero> numeroListJugados = new ArrayList<>();
 
-    
-    
-    
     @Inject
     NumeroRepository numeroRepository;
 
@@ -47,12 +44,9 @@ public class BingoFaces implements Serializable {
 
     public void setNumeroListJugados(List<Numero> numeroListJugados) {
         this.numeroListJugados = numeroRepository.findByJugado("si");
-        System.out.println(" JAY JUGADOZ "+numeroListJugados.size());
+        System.out.println(" JAY JUGADOZ " + numeroListJugados.size());
     }
 
-    
-    
-    
     /**
      * Creates a new instance of IndexFaces
      */
@@ -108,7 +102,7 @@ public class BingoFaces implements Serializable {
 
     public void onComplete() {
         jugar();
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Progress Completed"));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Nuevo número Jugado"));
     }
 
     public void cancel() {
@@ -156,19 +150,25 @@ public class BingoFaces implements Serializable {
             }
 
             while (continuar) {
-               // value = getRandomNumber(1, 18);
+                // value = getRandomNumber(1, 18);
                 value = getRandomNumberUsingInts(1, 18);
-                System.out.println("Value generado "+value);
+                System.out.println("Value generado " + value);
                 Numero numero = numeroRepository.findByNumero(value);
                 if (numero == null) {
-
+                    System.out.println("No encontro el numero");
                 } else {
                     if (numero.getNumero().equals(value)) {
                         if (numero.getJugado().equals("no")) {
                             Integer posicion = numeroRepository.positionOfNumero(value);
-                            numeroList.get(posicion).setJugado("si");
-                            ultimoJugado = numeroList.get(posicion);
-                            continuar = Boolean.FALSE;
+                            System.out.println(">>>>>>>Position:  " + posicion);
+                            if (posicion > 0) {
+                                numeroList.get(posicion).setJugado("si");
+                                ultimoJugado = numeroList.get(posicion);
+                                continuar = Boolean.FALSE;
+                            }else{
+                                System.out.println("Posicion es menor o igual a cero");
+                            }
+
                         }
                     }
                 }
